@@ -1,0 +1,21 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/3fdf28bc/
+Dependencies	README.md	/^Dependencies$/;"	s
+Installation	README.md	/^Installation$/;"	s
+Usage	README.md	/^Usage$/;"	s
+battery	src/main.rs	/^fn battery(sys: &System) -> String {$/;"	f
+cpu	src/main.rs	/^fn cpu(sys: &System) -> String {$/;"	f
+date	src/main.rs	/^fn date() -> String {$/;"	f
+main	src/main.rs	/^fn main() {$/;"	f
+plugged	src/main.rs	/^fn plugged(sys: &System) -> String {$/;"	f
+ram	src/main.rs	/^fn ram(sys: &System) -> String {$/;"	f
+run	src/main.rs	/^fn run(_sdone: chan::Sender<()>) {$/;"	f
+rust-dwm-status	README.md	/^rust-dwm-status$/;"	s
+separated	src/main.rs	/^fn separated(s: String) -> String {$/;"	f
+status	src/main.rs	/^fn status(sys: &System) -> String {$/;"	f
+update_status	src/main.rs	/^fn update_status(status: &String) {$/;"	f

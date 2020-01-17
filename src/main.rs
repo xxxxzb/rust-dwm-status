@@ -1,6 +1,15 @@
+//
+//	bat_full := ""
+//	bat_3quater := ""
+//	bat_half := ""
+//	bat_quater := ""
+//	bat_empty := ""
+//	charging_symbol := ""
+//    
+
 use std::process::Command;
-use std::time::Duration;
 use std::thread;
+use std::time::Duration;
 
 #[macro_use]
 extern crate chan;
@@ -13,21 +22,21 @@ extern crate systemstat;
 use chan_signal::Signal;
 use systemstat::{Platform, System};
 
-fn plugged(sys: &System) -> String {
-    if let Ok(plugged) = sys.on_ac_power() {
-        if plugged {
-            "🔌 ✓".to_string()
-        } else {
-            "🔌 ✘".to_string()
-        }
-    } else {
-        "🔌".to_string()
-    }
-}
+//fn plugged(sys: &System) -> String {
+//    if let Ok(plugged) = sys.on_ac_power() {
+//        if plugged {
+//            "✓".to_string()
+//        } else {
+//            "✘".to_string()
+//        }
+//    } else {
+//        "".to_string()
+//    }
+//}
 
 fn battery(sys: &System) -> String {
     if let Ok(bat) = sys.battery_life() {
-        format!("🔋 {:.1}%", bat.remaining_capacity * 100.)
+        format!("ﱎ{:.1}%", bat.remaining_capacity * 100.)
     } else {
         "".to_string()
     }
@@ -35,32 +44,41 @@ fn battery(sys: &System) -> String {
 
 fn ram(sys: &System) -> String {
     if let Ok(mem) = sys.memory() {
-        let used = mem.total - mem.free;
-        format!("▯ {}", used)
+        let used =  mem.free;
+        format!("{}", used)
     } else {
-        "▯ _".to_string()
+        "".to_string()
     }
 }
 
 fn cpu(sys: &System) -> String {
     if let Ok(load) = sys.load_average() {
-        format!("⚙ {:.2}", load.one)
+        format!("{}", load.five)
     } else {
-        "⚙ _".to_string()
+        "".to_string()
     }
 }
 
 fn date() -> String {
-    chrono::Local::now().format("📆 %a, %d %h ⸱ 🕓 %R").to_string()
+    chrono::Local::now()
+        .format("%a,%d %h %R")
+        .to_string()
 }
 
 fn separated(s: String) -> String {
-    if s == "" { s } else { s + " ⸱ " }
+    if s == "" {
+        s
+    } else {
+        s + ""
+    }
 }
 
 fn status(sys: &System) -> String {
-    separated(plugged(sys)) + &separated(battery(sys)) + &separated(ram(sys)) +
-    &separated(cpu(sys)) + &date()
+    //separated(plugged(sys))+ 
+         separated(battery(sys))
+        + &separated(ram(sys))
+        + &separated(cpu(sys))
+        + &date()
 }
 
 fn update_status(status: &String) {
@@ -75,8 +93,8 @@ fn run(_sdone: chan::Sender<()>) {
 
     let (sender, receiver) = std::sync::mpsc::channel();
     std::thread::spawn(move || {
-                           server.start(|notification| sender.send(notification.clone()).unwrap())
-                       });
+        server.start(|notification| sender.send(notification.clone()).unwrap())
+    });
     let mut banner = String::new();
     loop {
         let received = receiver.try_recv();
